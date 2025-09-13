@@ -1,0 +1,21 @@
+body,html { margin:0; padding:0; height:100%; font-family:Arial, sans-serif; background:#0b0b0f; color:#e9eefc; overflow-x:hidden; }
+h1,h2,h3,p { margin:0; }
+a { text-decoration:none; color:inherit; }
+
+header { position:fixed; top:0; left:0; right:0; background:rgba(0,0,0,0.6); padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; z-index:10; }
+header h1 { font-size:1.5rem; font-weight:bold; }
+header .accent { color:#9b5cff; }
+nav a { margin-left:1rem; transition:color .2s; }
+nav a:hover { color:#9b5cff; }
+
+.hero { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:100vh; padding:2rem; }
+.hero h2 { font-size:3rem; margin-bottom:1rem; }
+.hero .accent { color:#9b5cff; }
+
+.btn { display:inline-block; margin:.5rem; padding:.75rem 1.5rem; border-radius:12px; border:1px solid #e9eefc; color:#e9eefc; }
+.btn.accent { background:#9b5cff; border:none; color:#000; }
+
+.card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:12px; padding:1rem; margin:1rem 0; }
+
+#glitch-canvas { position:fixed; inset:0; z-index:-1; }
+.scanlines { position:fixed; inset:0; pointer-events:none; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 1px, transparent 2px, transparent 4px); mix-blend-mode:overlay; z-index:0; }

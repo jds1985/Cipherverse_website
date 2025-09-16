@@ -87,40 +87,68 @@
   </main>
 
   <!-- Upload Button for Background -->
-  <label class="uploader">
+  <label class="uploader" id="bgLabel">
     Set Background
     <input type="file" id="bgUpload" accept="image/*">
   </label>
 
   <script>
+    // Helper to save image to localStorage
+    function saveImage(key, file, callback) {
+      const reader = new FileReader();
+      reader.onload = evt => {
+        localStorage.setItem(key, evt.target.result);
+        callback(evt.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
     // Background upload
-    document.getElementById('bgUpload').addEventListener('change', e => {
+    const bgInput = document.getElementById('bgUpload');
+    bgInput.addEventListener('change', e => {
       const file = e.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = evt => document.body.style.backgroundImage = `url(${evt.target.result})`;
-        reader.readAsDataURL(file);
+        saveImage("bgImage", file, result => {
+          document.body.style.backgroundImage = `url(${result})`;
+          document.getElementById("bgLabel").style.display = "none";
+        });
       }
     });
 
     // Webster upload
-    document.getElementById('websterUpload').addEventListener('change', e => {
+    const websterInput = document.getElementById('websterUpload');
+    websterInput.addEventListener('change', e => {
       const file = e.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = evt => document.getElementById('websterImg').src = evt.target.result;
-        reader.readAsDataURL(file);
+        saveImage("websterImage", file, result => {
+          document.getElementById('websterImg').src = result;
+        });
       }
     });
 
     // Error upload
-    document.getElementById('errorUpload').addEventListener('change', e => {
+    const errorInput = document.getElementById('errorUpload');
+    errorInput.addEventListener('change', e => {
       const file = e.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onload = evt => document.getElementById('errorImg').src = evt.target.result;
-        reader.readAsDataURL(file);
+        saveImage("errorImage", file, result => {
+          document.getElementById('errorImg').src = result;
+        });
       }
+    });
+
+    // Load saved images on page load
+    window.addEventListener('load', () => {
+      const bg = localStorage.getItem("bgImage");
+      const webster = localStorage.getItem("websterImage");
+      const error = localStorage.getItem("errorImage");
+
+      if (bg) {
+        document.body.style.backgroundImage = `url(${bg})`;
+        document.getElementById("bgLabel").style.display = "none";
+      }
+      if (webster) document.getElementById('websterImg').src = webster;
+      if (error) document.getElementById('errorImg').src = error;
     });
   </script>
 </body>
